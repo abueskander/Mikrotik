@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تسجيل الدخول - Abu eskander.net</title>
+<style>
+    body { font-family: 'Tahoma', sans-serif; background-color: #f0f0f0; padding: 20px; margin: 0; }
+    .top-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .left-box { background: #3fbf3f; color: white; padding: 6px 12px; border-radius: 10px; font-size: 15px; font-weight: bold; }
+    @keyframes blinkColors { 0% { color: red; } 33% { color: green; } 66% { color: black; } 100% { color: red; } }
+    .title { font-size: 26px; font-weight: bold; animation: blinkColors 1.5s infinite; text-align: right; }
+    .pal-box { display: flex; align-items: center; gap: 10px; justify-content: flex-end; font-size: 20px; font-weight: bold; color: #007700; margin-bottom: 15px; }
+    .flag { width: 35px; height: 22px; border-radius: 4px; object-fit: cover; }
+    @keyframes moveLeftToRight { 0% { transform: translateX(-110%); } 100% { transform: translateX(110%); } }
+    .advice-move { width: 100%; overflow: hidden; font-size: 20px; font-weight: bold; white-space: nowrap; margin: 22px 0; position: relative; background-color: #fff; padding: 8px 0; border-top: 2px solid #ddd; border-bottom: 2px solid #ddd; direction: ltr; }
+    .advice-move span { display: inline-block; padding-right: 80px; color: red; animation: moveLeftToRight 15s linear infinite; }
+    .advice-move span:nth-child(2) { animation-delay: -0s; }
+    .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.15); max-width: 420px; margin: auto; text-align: center; }
+    .input-group { margin-bottom: 15px; text-align: right; }
+    .input-label { font-size: 14px; color: #555; margin-bottom: 5px; display: block; font-weight: bold; }
+    .form-input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; box-sizing: border-box; font-family: 'Tahoma', sans-serif; text-align: center; transition: border 0.3s; }
+    .form-input:focus { border-color: #3fbf3f; outline: none; box-shadow: 0 0 5px rgba(63, 191, 63, 0.3); }
+    .btn-login { background: #3fbf3f; color: white; padding: 12px 0; width: 100%; border: none; border-radius: 6px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: background 0.3s; }
+    .btn-login:hover { background: #35a335; }
+    .error-msg { color: #d9534f; background: #ffe9e9; border: 1px solid #ffbcbc; padding: 10px; border-radius: 6px; margin-bottom: 15px; font-weight: bold; display: block; }
+    
+    .contact-buttons { display: flex; gap: 10px; margin-top: 15px; }
+    .btn-contact { flex: 1; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; padding: 10px 0; border-radius: 6px; font-weight: bold; font-size: 14px; transition: opacity 0.3s; }
+    .btn-contact:hover { opacity: 0.9; }
+    .bg-wa { background-color: #25D366; } .bg-call { background-color: #007bff; }
+    .icon-svg { width: 18px; height: 18px; fill: white; margin-left: 8px; }
+    
+    .btn-trial { display: block; width: 100%; background-color: #ff9800; color: white; text-decoration: none; padding: 10px 0; border-radius: 6px; font-weight: bold; font-size: 16px; margin-top: 15px; margin-bottom: 5px; transition: background 0.3s; border: none; cursor: pointer; }
+    .btn-trial:hover { background-color: #f57c00; }
+
+    #history-container { margin-top: 10px; display: none; text-align: right; }
+    .history-title { font-size: 12px; color: #777; margin-bottom: 5px; }
+    .history-tag { display: inline-block; background-color: #e9f4ff; border: 1px solid #bcdcff; color: #0056b3; padding: 5px 12px; border-radius: 20px; margin-left: 5px; margin-bottom: 5px; font-size: 14px; font-weight: bold; cursor: pointer; transition: all 0.2s; }
+    .history-tag:hover { background-color: #d0e8ff; transform: scale(1.05); }
+
+    .hadith-box {
+        background-color: #f1f8e9;
+        border-bottom: 1px solid #dcedc8;
+        color: #33691e;
+        padding: 8px;
+        border-radius: 6px;
+        margin-bottom: 10px;
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 1.4;
+    }
+    .hadith-icon { font-size: 14px; margin-left: 5px; }
+
+    /* ستايل زر الأسعار (الصغير الجديد) */
+    .btn-prices-small {
+        display: inline-block;
+        background-color: #607d8b;
+        color: white;
+        border: none;
+        padding: 6px 15px;
+        border-radius: 20px; /* حواف دائرية */
+        font-size: 13px; /* خط صغير */
+        font-weight: bold;
+        cursor: pointer;
+        margin-bottom: 10px; /* مسافة تحته */
+        transition: background 0.3s;
+    }
+    .btn-prices-small:hover { background-color: #455a64; }
+
+    /* النافذة المنبثقة */
+    .price-modal {
+        display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8); z-index: 999; backdrop-filter: blur(3px);
+    }
+    .price-content {
+        background: white; margin: 15% auto; padding: 20px; width: 85%; max-width: 320px;
+        border-radius: 12px; text-align: center; border: 3px solid #3fbf3f; position: relative;
+    }
+    .price-table { width: 100%; font-size: 15px; margin-bottom: 15px; border-collapse: collapse; }
+    .price-table th { background: #3fbf3f; color: white; padding: 8px; }
+    .price-table td { border-bottom: 1px solid #ddd; padding: 8px; color: #333; font-weight: bold; }
+    .close-modal {
+        background: #d9534f; color: white; border: none; padding: 8px 20px;
+        border-radius: 6px; cursor: pointer; font-weight: bold;
+    }
+</style>
+</head>
+<body>
+
+<div class="top-row"><div class="left-box">توصيل النت لبيتك</div><div class="title">Abu eskander.net</div></div>
+<div class="pal-box"><span>فلسطين حرة</span><img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/0/00/Flag_of_Palestine.svg"></div>
+
+<div class="advice-move" aria-hidden="false">
+    <span>يجب أن تستخدم الشبكة بما يرضي الله — لا تجعل الله أهون الناظرين إليك</span>
+    <span style="color: blue;">🆕 متاح الآن: كارت (الأبطال) للأطفال - نت آمن ويغلق 10 مساءً للنوم 🦸‍♂️</span>
+    <span>يجب أن تستخدم الشبكة بما يرضي الله — لا تجعل الله أهون الناظرين إليك</span>
+</div>
+
+<div class="card">
+    $(if error)<div class="error-msg">❌ $(error)</div>$(endif)
+
+    <div class="hadith-box">
+        <span class="hadith-icon">🕋</span>
+        <span id="hadith-text">...</span>
+    </div>
+
+    <button onclick="document.getElementById('price-modal').style.display='block'" class="btn-prices-small">📋 عرض أسعار الباقات</button>
+
+    <h3 style="margin-top: 0; color: #333;">تسجيل الدخول</h3>
+
+    <form name="login" action="$(link-login-only)" method="post" onSubmit="return doLogin()">
+        <input type="hidden" name="dst" value="$(link-orig)">
+        <input type="hidden" name="popup" value="true">
+        <input type="hidden" name="password">
+
+        <div class="input-group">
+            <label class="input-label">أدخل رقم الكارت للدخول</label>
+            <input class="form-input" id="username-input" name="username" type="text" value="$(username)" placeholder="اكتب الكود هنا" required>
+            <div id="history-container"><div class="history-title">كروت استخدمتها سابقاً (اضغط للدخول):</div><div id="history-list"></div></div>
+        </div>
+
+        <button type="submit" class="btn-login">دخول للشبكة 🚀</button>
+    </form>
+    
+    $(if trial == 'yes')
+    <a href="$(link-login-only)?target=trial" class="btn-trial">🎁 تجربة مجانية (5 دقائق)</a>
+    $(endif)
+    
+    <div class="contact-buttons">
+        <a href="tel:01021205253" class="btn-contact bg-call"><svg class="icon-svg" viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.44-5.15-3.75-6.59-6.59l1.97-1.57c.27-.27.36-.66.24-1.01-.36-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3.3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>اتصال واشترك</a>
+    </div>
+</div>
+
+<div id="price-modal" class="price-modal">
+    <div class="price-content">
+        <h3 style="color:#3fbf3f; margin-top:0;">باقات أبو إسكندر</h3>
+        <table class="price-table">
+            <tr><th>الباقة</th><th>السعر</th></tr>
+            <tr><td>500 ميجا</td><td>5 جنيه</td></tr>
+            <tr><td>1200 ميجا</td><td>10 جنيه</td></tr>
+            <tr><td>2000 ميجا</td><td>15 جنيه</td></tr>
+            <tr><td>3000 ميجا</td><td>20 جنيه</td></tr>
+            <tr><td>باقة الأبطال (أطفال)</td><td>اتصل بنا</td></tr>
+            <tr><td>اشتراك شهري</td><td>حسب السرعة</td></tr>
+        </table>
+        <button onclick="document.getElementById('price-modal').style.display='none'" class="close-modal">إغلاق X</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    document.login.username.focus();
+    const STORAGE_KEY = 'mikrotik_card_history';
+
+    const hadithList = [
+        "قال رسول الله ﷺ: «الكلمة الطيبة صدقة»",
+        "قال رسول الله ﷺ: «من كان يؤمن بالله واليوم الآخر فليقل خيرًا أو ليصمت»",
+        "قال رسول الله ﷺ: «اتق الله حيثما كنت، وأتبع السيئة الحسنة تمحها»",
+        "قال رسول الله ﷺ: «لا يؤمن أحدكم حتى يحب لأخيه ما يحب لنفسه»",
+        "قال رسول الله ﷺ: «تهادوا تحابوا»",
+        "قال رسول الله ﷺ: «المسلم من سلم المسلمون من لسانه ويده»",
+        "قال رسول الله ﷺ: «من غشنا فليس منا»",
+        "قال رسول الله ﷺ: «خيركم من تعلم القرآن وعلمه»",
+        "قال رسول الله ﷺ: «الطهر شطر الإيمان»",
+        "قال رسول الله ﷺ: «الدين النصيحة»",
+        "قال رسول الله ﷺ: «يسروا ولا تعسروا، وبشروا ولا تنفروا»",
+        "قال رسول الله ﷺ: «إن الله يحب إذا عمل أحدكم عملاً أن يتقنه»"
+    ];
+    const randomIndex = Math.floor(Math.random() * hadithList.length);
+    document.getElementById("hadith-text").innerText = hadithList[randomIndex];
+
+    function doLogin() {
+        const userCode = document.login.username.value.trim();
+        document.login.password.value = userCode;
+        if (userCode.length > 2) { saveToHistory(userCode); }
+        return true;
+    }
+    function saveToHistory(code) {
+        let history = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        history = history.filter(item => item !== code);
+        history.unshift(code);
+        if (history.length > 3) { history.pop(); }
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
+    }
+    function loadHistory() {
+        const history = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        const container = document.getElementById('history-container');
+        const list = document.getElementById('history-list');
+        if (history.length === 0) { container.style.display = 'none'; return; }
+        container.style.display = 'block';
+        list.innerHTML = '';
+        history.forEach(code => {
+            const tag = document.createElement('span'); tag.className = 'history-tag'; tag.innerText = code;
+            tag.onclick = function() { document.getElementById('username-input').value = code; document.login.username.focus(); };
+            list.appendChild(tag);
+        });
+    }
+    loadHistory();
+</script>
+
+</body>
+</html>
