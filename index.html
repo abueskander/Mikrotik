@@ -155,3 +155,126 @@
             <tr><th>الباقة</th><th>السعر</th></tr>
             <tr><td>500 ميجا</td><td>5 جنيه</td></tr>
             <tr><td>1200 ميجا</td><td>10 جنيه</td></tr>
+            <tr><td>2000 ميجا</td><td>15 جنيه</td></tr>
+            <tr><td>3000 ميجا</td><td>20 جنيه</td></tr>
+            <tr><td>باقة الأبطال (أطفال)</td><td>اتصل بنا</td></tr>
+            <tr><td>اشتراك شهري</td><td>حسب السرعة</td></tr>
+        </table>
+        <button onclick="document.getElementById('price-modal').style.display='none'" class="close-modal">إغلاق X</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    // --- كود الأحاديث والتاريخ القديم ---
+    document.login.username.focus();
+    const STORAGE_KEY = 'mikrotik_card_history';
+
+    const hadithList = [
+        "قال رسول الله ﷺ: «الكلمة الطيبة صدقة»",
+        "قال رسول الله ﷺ: «من كان يؤمن بالله واليوم الآخر فليقل خيرًا أو ليصمت»",
+        "قال رسول الله ﷺ: «اتق الله حيثما كنت، وأتبع السيئة الحسنة تمحها»",
+        "قال رسول الله ﷺ: «لا يؤمن أحدكم حتى يحب لأخيه ما يحب لنفسه»",
+        "قال رسول الله ﷺ: «تهادوا تحابوا»",
+        "قال رسول الله ﷺ: «المسلم من سلم المسلمون من لسانه ويده»",
+        "قال رسول الله ﷺ: «من غشنا فليس منا»",
+        "قال رسول الله ﷺ: «خيركم من تعلم القرآن وعلمه»",
+        "قال رسول الله ﷺ: «الطهر شطر الإيمان»",
+        "قال رسول الله ﷺ: «الدين النصيحة»",
+        "قال رسول الله ﷺ: «يسروا ولا تعسروا، وبشروا ولا تنفروا»",
+        "قال رسول الله ﷺ: «إن الله يحب إذا عمل أحدكم عملاً أن يتقنه»"
+    ];
+    const randomIndex = Math.floor(Math.random() * hadithList.length);
+    document.getElementById("hadith-text").innerText = hadithList[randomIndex];
+
+    function saveToHistory(code) {
+        let history = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        history = history.filter(item => item !== code);
+        history.unshift(code);
+        if (history.length > 3) { history.pop(); }
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
+    }
+    function loadHistory() {
+        const history = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        const container = document.getElementById('history-container');
+        const list = document.getElementById('history-list');
+        if (history.length === 0) { container.style.display = 'none'; return; }
+        container.style.display = 'block';
+        list.innerHTML = '';
+        history.forEach(code => {
+            const tag = document.createElement('span'); tag.className = 'history-tag'; tag.innerText = code;
+            tag.onclick = function() { document.getElementById('username-input').value = code; document.login.username.focus(); };
+            list.appendChild(tag);
+        });
+    }
+    loadHistory();
+
+    // --- كود الحظر والعداد الجديد (الذي طلبته) ---
+    var failedAttempts = parseInt(localStorage.getItem('fail_count')) || 0;
+    var banEndTime = parseInt(localStorage.getItem('ban_time')) || 0;
+
+    // دالة بدء العداد
+    function startBanTimer(duration) {
+        var overlay = document.getElementById('ban-overlay');
+        var timerDisplay = document.getElementById('timer-count');
+        overlay.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+
+        var interval = setInterval(function() {
+            var now = new Date().getTime();
+            var distance = duration - now;
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            if(seconds < 0) seconds = 0;
+            timerDisplay.innerHTML = seconds;
+
+            if (distance < 0) {
+                clearInterval(interval);
+                localStorage.setItem('fail_count', 0); // تصفير العداد
+                localStorage.removeItem('ban_time'); // إزالة وقت الحظر
+                window.location.reload(); // إعادة تحميل الصفحة
+            }
+        }, 1000);
+    }
+
+    // فحص هل المستخدم محظور الآن؟
+    var currentTime = new Date().getTime();
+    if (banEndTime > currentTime) {
+        startBanTimer(banEndTime);
+    } else {
+        // لو مش محظور، نشوف هل فيه رسالة خطأ من الميكروتك؟
+        var errorBox = document.getElementById('mt-error-box');
+        if (errorBox) {
+            var errorText = errorBox.innerText;
+            // لو الخطأ "باسورد غلط"
+            if (errorText.indexOf('invalid') !== -1 || errorText.indexOf('not found') !== -1) {
+                failedAttempts++;
+                localStorage.setItem('fail_count', failedAttempts);
+
+                if (failedAttempts >= 3) {
+                    // تفعيل الحظر لمدة 30 ثانية
+                    var newBanTime = currentTime + (30 * 1000);
+                    localStorage.setItem('ban_time', newBanTime);
+                    startBanTimer(newBanTime);
+                } else {
+                    // إظهار رسالة تحذير بعدد المحاولات
+                    var remaining = 3 - failedAttempts;
+                    alert('⚠️ الكود خطأ! \nباقي لك ' + remaining + ' محاولات قبل الحظر المؤقت.');
+                }
+            }
+        }
+    }
+
+    function doLogin() {
+        // منع الإرسال لو محظور
+        if (new Date().getTime() < parseInt(localStorage.getItem('ban_time') || 0)) {
+            return false;
+        }
+        const userCode = document.login.username.value.trim();
+        document.login.password.value = userCode;
+        if (userCode.length > 2) { saveToHistory(userCode); }
+        return true;
+    }
+</script>
+
+</body>
+</html>
