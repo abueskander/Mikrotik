@@ -3,261 +3,155 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-$(if refresh-timeout)<meta http-equiv="refresh" content="$(refresh-timeout); url=$(link-status)">$(endif)
-<title>صفحة المستخدم - Abu eskander.net</title>
+<title>تسجيل الدخول - Abu eskander.net</title>
 <style>
-    /* =========================================
-       1. المتغيرات والألوان (وضع نهاري / ليلي)
-       ========================================= */
-    :root {
-        --bg-color: #f0f0f0;
-        --card-bg: #ffffff;
-        --text-color: #333333;
-        --box-user-bg: #ffe9e9; --box-user-border: #ffbcbc;
-        --box-mega-bg: #e9f4ff; --box-mega-border: #bcdcff;
-        --box-time-bg: #e9ffe9; --box-time-border: #b4ffb4;
-        --box-plan-bg: #fffbe9; --box-plan-border: #ffeebc;
-        --shadow: 0 4px 8px rgba(0,0,0,0.15);
-    }
-
-    [data-theme="dark"] {
-        --bg-color: #121212;
-        --card-bg: #1e1e1e;
-        --text-color: #e0e0e0;
-        --box-user-bg: #2c1a1a; --box-user-border: #442b2b;
-        --box-mega-bg: #1a232c; --box-mega-border: #2b3a44;
-        --box-time-bg: #1a2c1a; --box-time-border: #2b442b;
-        --box-plan-bg: #2c2a1a; --box-plan-border: #44412b;
-        --shadow: 0 4px 8px rgba(0,0,0,0.5);
-    }
-
-    /* =========================================
-       2. التنسيقات العامة والأنيميشن
-       ========================================= */
-    body { 
-        font-family: 'Tahoma', sans-serif; 
-        background-color: var(--bg-color); 
-        color: var(--text-color);
-        padding: 20px; 
-        margin: 0; 
-        padding-bottom: 80px;
-        transition: background 0.3s, color 0.3s;
-    }
-    
-    @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    .card { 
-        background: var(--card-bg); 
-        padding: 20px; 
-        border-radius: 60px; 
-        box-shadow: var(--shadow); 
-        max-width: 420px; 
-        margin: auto; 
-        text-align: center;
-        animation: fadeInUp 0.8s ease-out; 
-        transition: background 0.3s;
-    }
-
-    /* زر الوضع الليلي */
-    .theme-toggle {
-        position: absolute;
-        top: 1px;
-        left: 10px;
-        background: none;
-        border: none;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-        z-index: 1000;
-        color: var(--text-color);
-        padding: 5px 10px;
-        border-radius: 20px;
-        background-color: rgba(0,0,0,0.1);
-        transition: transform 0.3s;
-    }
-    [data-theme="dark"] .theme-toggle { background-color: rgba(255,255,255,0.1); color: #fff; }
-    .theme-toggle:hover { transform: scale(1.05); }
-
-    #normal-card { display: block; }
+    body { font-family: 'Tahoma', sans-serif; background-color: #f0f0f0; padding: 20px; margin: 0; }
     .top-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-    .left-box { background: #3fbf3f; color: white; padding: 6px 12px; border-radius: 100px; font-size: 15px; font-weight: bold; }
-    
+    .left-box { background: #3fbf3f; color: white; padding: 6px 12px; border-radius: 10px; font-size: 15px; font-weight: bold; }
     @keyframes blinkColors { 0% { color: red; } 33% { color: green; } 66% { color: black; } 100% { color: red; } }
     .title { font-size: 26px; font-weight: bold; animation: blinkColors 1.5s infinite; text-align: right; }
-    
     .pal-box { display: flex; align-items: center; gap: 10px; justify-content: flex-end; font-size: 20px; font-weight: bold; color: #007700; margin-bottom: 15px; }
-    .flag { width: 35px; height: 22px; border-radius: 40px; object-fit: cover; }
-    
+    .flag { width: 35px; height: 22px; border-radius: 4px; object-fit: cover; }
     @keyframes moveLeftToRight { 0% { transform: translateX(-110%); } 100% { transform: translateX(110%); } }
-    .advice-move { width: 100%; overflow: hidden; font-size: 20px; font-weight: bold; white-space: nowrap; margin: 22px 0; position: relative; background-color: var(--card-bg); padding: 8px 0; border-top: 2px solid #ddd; border-bottom: 2px solid #ddd; direction: ltr; }
-    .advice-move span { display: inline-block; padding-right: 80px; color: red; animation: moveLeftToRight 12s linear infinite; }
+    .advice-move { width: 100%; overflow: hidden; font-size: 20px; font-weight: bold; white-space: nowrap; margin: 22px 0; position: relative; background-color: #fff; padding: 8px 0; border-top: 2px solid #ddd; border-bottom: 2px solid #ddd; direction: ltr; }
+    .advice-move span { display: inline-block; padding-right: 80px; color: red; animation: moveLeftToRight 15s linear infinite; }
+    .advice-move span:nth-child(2) { animation-delay: -0s; }
+    .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.15); max-width: 420px; margin: auto; text-align: center; }
+    .input-group { margin-bottom: 15px; text-align: right; }
+    .input-label { font-size: 14px; color: #555; margin-bottom: 5px; display: block; font-weight: bold; }
+    .form-input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; box-sizing: border-box; font-family: 'Tahoma', sans-serif; text-align: center; transition: border 0.3s; }
+    .form-input:focus { border-color: #3fbf3f; outline: none; box-shadow: 0 0 5px rgba(63, 191, 63, 0.3); }
+    .btn-login { background: #3fbf3f; color: white; padding: 12px 0; width: 100%; border: none; border-radius: 6px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: background 0.3s; }
+    .btn-login:hover { background: #35a335; }
+    .error-msg { color: #d9534f; background: #ffe9e9; border: 1px solid #ffbcbc; padding: 10px; border-radius: 6px; margin-bottom: 15px; font-weight: bold; display: block; }
     
-    .box-info { padding: 12px; border-radius: 50px; margin: 10px 0; border: 1px solid transparent; color: var(--text-color); }
-    .box-user { background: var(--box-user-bg); border-color: var(--box-user-border); }
-    .box-mega { background: var(--box-mega-bg); border-color: var(--box-mega-border); }
-    .box-time { background: var(--box-time-bg); border-color: var(--box-time-border); }
-    .box-plan-details { background: var(--box-plan-bg); border-color: var(--box-plan-border); color: #8a6d3b; }
-    [data-theme="dark"] .box-plan-details { color: #d4b675; }
+    .contact-buttons { display: flex; gap: 10px; margin-top: 15px; }
+    .btn-contact { flex: 1; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; padding: 10px 0; border-radius: 6px; font-weight: bold; font-size: 14px; transition: opacity 0.3s; }
+    .btn-contact:hover { opacity: 0.9; }
+    .bg-wa { background-color: #25D366; } .bg-call { background-color: #007bff; }
+    .icon-svg { width: 18px; height: 18px; fill: white; margin-left: 8px; }
+    
+    .btn-trial { display: block; width: 100%; background-color: #ff9800; color: white; text-decoration: none; padding: 10px 0; border-radius: 6px; font-weight: bold; font-size: 16px; margin-top: 15px; margin-bottom: 5px; transition: background 0.3s; border: none; cursor: pointer; }
+    .btn-trial:hover { background-color: #f57c00; }
 
-    .btn-logout { background: #d9534f; color: white; padding: 12px 25px; border-radius: 50px; border: none; width: 100%; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: background 0.3s; }
-    .btn-logout:hover { background: #c9302c; }
-    
-    /* زر جروب الشبكة الجديد */
-    .btn-group-wa {
-        display: flex; align-items: center; justify-content: center;
-        background: #128C7E; /* لون واتساب الرسمي */
-        color: white; text-decoration: none;
-        padding: px; border-radius: 50px;
-        font-weight: bold; margin-bottom: 1px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        transition: transform 0.2s;
+    #history-container { margin-top: 10px; display: none; text-align: right; }
+    .history-title { font-size: 12px; color: #777; margin-bottom: 5px; }
+    .history-tag { display: inline-block; background-color: #e9f4ff; border: 1px solid #bcdcff; color: #0056b3; padding: 5px 12px; border-radius: 20px; margin-left: 5px; margin-bottom: 5px; font-size: 14px; font-weight: bold; cursor: pointer; transition: all 0.2s; }
+    .history-tag:hover { background-color: #d0e8ff; transform: scale(1.05); }
+
+    .hadith-box {
+        background-color: #f1f8e9;
+        border-bottom: 1px solid #dcedc8;
+        color: #33691e;
+        padding: 8px;
+        border-radius: 6px;
+        margin-bottom: 10px;
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 1.4;
     }
-    .btn-group-wa:hover { transform: scale(1.02); background: #075E54; }
+    .hadith-icon { font-size: 14px; margin-left: 5px; }
 
-    /* تنسيق أزرار التواصل */
-    .contact-container { margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px; }
-    .btn-call { display: block; width: 100%; background: #007bff; color: white; padding: 10px 0; border-radius: 50px; text-decoration: none; font-weight: bold; margin-bottom: 8px; font-size: 16px; }
-    
-    .whatsapp-row { display: flex; gap: 8px; margin-bottom: 8px; }
-    .btn-wa-buy { background: #25D366; color: white; flex: 1; padding: 10px 0; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 13px; display: flex; align-items: center; justify-content: center; }
-    .btn-wa-help { background: #d32f2f; color: white; flex: 1; padding: 10px 0; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 13px; display: flex; align-items: center; justify-content: center; }
-    
-    .btn-speed { display: block; width: 100%; background: #673ab7; color: white; padding: 10px 0; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 15px; transition: background 0.3s; }
-    .btn-speed:hover { background: #5e35b1; }
+    .btn-prices-small {
+        display: inline-block;
+        background-color: #607d8b;
+        color: white;
+        border: none;
+        padding: 6px 15px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: bold;
+        cursor: pointer;
+        margin-bottom: 10px;
+        transition: background 0.3s;
+    }
+    .btn-prices-small:hover { background-color: #455a64; }
 
-    .icon-svg { width: 16px; height: 16px; fill: white; margin-left: 5px; }
+    .price-modal {
+        display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8); z-index: 999; backdrop-filter: blur(3px);
+    }
+    .price-content {
+        background: white; margin: 15% auto; padding: 20px; width: 85%; max-width: 320px;
+        border-radius: 12px; text-align: center; border: 3px solid #3fbf3f; position: relative;
+    }
+    .price-table { width: 100%; font-size: 15px; margin-bottom: 15px; border-collapse: collapse; }
+    .price-table th { background: #3fbf3f; color: white; padding: 8px; }
+    .price-table td { border-bottom: 1px solid #ddd; padding: 8px; color: #333; font-weight: bold; }
+    .close-modal {
+        background: #d9534f; color: white; border: none; padding: 8px 20px;
+        border-radius: 6px; cursor: pointer; font-weight: bold;
+    }
 
-    /* =========================================
-       3. تنسيقات صفحة الأطفال
-       ========================================= */
-    #kids-card-container { display: none; }
-    .kids-body-style { background-color: #e3f2fd !important; text-align: center; }
-    .kids-card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 400px; margin: auto; border: 4px solid #42a5f5; animation: fadeInUp 0.8s ease-out; }
-    .hero-icon { font-size: 60px; margin-bottom: 10px; display: block; }
-    .kids-title { color: #1565c0; font-size: 24px; font-weight: bold; margin-bottom: 15px; }
-    .sub-text { font-size: 14px; font-weight: bold; color: #0d47a1; margin-bottom: 20px; }
-    .message-box { background-color: #fff3e0; border: 2px dashed #ffb74d; color: #e65100; padding: 15px; border-radius: 10px; font-size: 12px; font-weight: bold; margin-bottom: 20px; }
-    .info-row { background: #f5f5f5; padding: 10px; border-radius: 8px; margin-bottom: 8px; font-weight: bold; color: #555; }
-    .btn-support { background: #43a047; color: white; padding: 12px; width: 100%; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; margin-bottom: 15px; text-decoration: none; display: block; }
-    .btn-kids-logout { background: #ef5350; color: white; padding: 12px; width: 100%; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; }
+    /* ستايل شاشة الحظر الجديدة */
+    #ban-overlay {
+        display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.95); z-index: 10000; color: white; text-align: center;
+        padding-top: 30vh;
+    }
+    .ban-icon { font-size: 60px; margin-bottom: 20px; display: block; }
+    #timer-count { font-size: 80px; font-weight: bold; color: #ffeb3b; display: block; margin: 10px 0; }
 </style>
 </head>
-<body id="main-body">
+<body>
 
-<button id="theme-btn" class="theme-toggle" onclick="toggleTheme()" title="تغيير الوضع">☀️ الوضع الليلي</button>
+<div id="ban-overlay">
+    <span class="ban-icon">🚫</span>
+    <h1 style="color: #ff5252; margin: 0;">تم حظرك مؤقتاً</h1>
+    <p style="font-size: 18px; margin-top: 10px;">أدخلت الكود خطأ 3 مرات متتالية</p>
+    <p>يمكنك المحاولة مجدداً بعد:</p>
+    <span id="timer-count">30</span>
+    <p>ثانية</p>
+</div>
 
-<div id="normal-card">
-    <div class="top-row"><div class="left-box">توصيل النت لبيتك</div><div class="title">Abu eskander.net</div></div>
-    <div class="pal-box"><span>فلسطين حرة</span><img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/0/00/Flag_of_Palestine.svg"></div>
-    <div class="advice-move" aria-hidden="false">
-        <span>يجب أن تستخدم الشبكة بما يرضي الله — لا تجعل الله أهون الناظرين إليك</span>
-        <span>يجب أن تستخدم الشبكة بما يرضي الله — لا تجعل الله أهون الناظرين إليك</span>
+<div class="top-row"><div class="left-box">توصيل النت لبيتك</div><div class="title">Abu eskander.net</div></div>
+<div class="pal-box"><span>فلسطين حرة</span><img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/0/00/Flag_of_Palestine.svg"></div>
+
+<div class="advice-move" aria-hidden="false">
+    <span>يجب أن تستخدم الشبكة بما يرضي الله — لا تجعل الله أهون الناظرين إليك</span>
+    <span style="color: blue;">🆕 متاح الآن: كارت (الأبطال) للأطفال - نت آمن ويغلق 10 مساءً للنوم 🦸‍♂️</span>
+    <span>يجب أن تستخدم الشبكة بما يرضي الله — لا تجعل الله أهون الناظرين إليك</span>
+</div>
+
+<div class="card">
+    $(if error)<div class="error-msg" id="mt-error-box">❌ $(error)</div>$(endif)
+
+    <div class="hadith-box">
+        <span class="hadith-icon">🕋</span>
+        <span id="hadith-text">...</span>
     </div>
+
+    <button onclick="document.getElementById('price-modal').style.display='block'" class="btn-prices-small">📋 عرض أسعار الباقات</button>
+
+    <h3 style="margin-top: 0; color: #333;">تسجيل الدخول</h3>
+
+    <form name="login" action="$(link-login-only)" method="post" onSubmit="return doLogin()">
+        <input type="hidden" name="dst" value="$(link-orig)">
+        <input type="hidden" name="popup" value="true">
+        <input type="hidden" name="password">
+
+        <div class="input-group">
+            <label class="input-label">أدخل رقم الكارت للدخول</label>
+            <input class="form-input" id="username-input" name="username" type="text" value="$(username)" placeholder="اكتب الكود هنا" required>
+            <div id="history-container"><div class="history-title">كروت استخدمتها سابقاً (اضغط للدخول):</div><div id="history-list"></div></div>
+        </div>
+
+        <button type="submit" class="btn-login">دخول للشبكة 🚀</button>
+    </form>
     
-    <div class="card">
-        
-        <a href="https://chat.whatsapp.com/FDfMS7OL6VCDnML0Wm2vUG?mode=hqrt3" target="_blank" class="btn-group-wa">
-            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.654-.696c1.029.575 1.96.865 3.109.865 3.182 0 5.769-2.587 5.769-5.767 0-3.181-2.584-5.767-5.765-5.767zm0 10.158c-1.036 0-1.921-.297-2.775-.769l-.199-.111-1.636.429.441-1.591-.124-.207c-.502-.821-.806-1.657-.806-2.482 0-2.508 2.039-4.549 4.55-4.549 2.507 0 4.547 2.039 4.547 4.549 0 2.509-2.041 4.549-4.549 4.549zm2.492-3.414c-.136-.068-.804-.396-.928-.442-.124-.046-.214-.068-.304.069-.091.136-.353.442-.432.533-.081.091-.159.103-.295.035-.136-.068-.574-.211-1.094-.675-.407-.363-.682-.812-.762-.949-.081-.136-.009-.21.059-.278.062-.061.136-.159.204-.238.068-.079.091-.136.136-.227.046-.091.023-.171-.011-.238-.035-.068-.304-.733-.417-1.003-.109-.262-.221-.226-.304-.231-.079-.005-.171-.005-.262-.005-.091 0-.238.034-.363.171-.125.136-.477.476-.477 1.162 0 .686.499 1.349.568 1.441.069.091.983 1.5 2.382 2.104 1.399.604 1.399.402 1.652.378.253-.023.804-.329.918-.646.114-.318.114-.591.079-.646-.035-.056-.125-.091-.261-.159z"/></svg>
-              انضم الي جروب الشبكه (جروب عام)  
-        </a>
-
-        <div class="box-info box-user"><strong>☺️ أهلاً :</strong><br><span dir="ltr">$(username)</span></div>
-        <div class="box-info box-plan-details"><strong>تفاصيل الباقة:</strong><br><span id="plan-display" style="font-size: 18px; font-weight: bold;">مشترك عادي</span></div>
-        <div class="box-info box-mega"><strong>المتبقي من الباقة:</strong><br>$(if remain-bytes-total)$(remain-bytes-total-nice)$(else)غير محدد / مفتوح$(endif)</div>
-        <div class="box-info box-time"><strong>الوقت المتبقي:</strong><br>$(if session-time-left)$(session-time-left)$(else)مفتوح$(endif)</div>
-        
-        <form action="$(link-logout)" name="logout" onSubmit="return confirm('هل أنت متأكد أنك تريد تسجيل الخروج؟')">
-            <button type="submit" class="btn-logout">تسجيل الخروج من الكارت</button>
-        </form>
-        
-        <div class="contact-container">
-            <a href="tel:01021205253" class="btn-call">
-                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.44-5.15-3.75-6.59-6.59l1.97-1.57c.27-.27.36-.66.24-1.01-.36-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3.3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
-                اتصال هاتفي
-            </a>
-            
-            <div class="whatsapp-row">
-                <a href="https://api.whatsapp.com/send?phone=201021205253&text=السلام عليكم، محتاج أجدد الباقة لكارت رقم: $(username)" class="btn-wa-buy" target="_blank">
-                    <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.654-.696c1.029.575 1.96.865 3.109.865 3.182 0 5.769-2.587 5.769-5.767 0-3.181-2.584-5.767-5.765-5.767zm0 10.158c-1.036 0-1.921-.297-2.775-.769l-.199-.111-1.636.429.441-1.591-.124-.207c-.502-.821-.806-1.657-.806-2.482 0-2.508 2.039-4.549 4.55-4.549 2.507 0 4.547 2.039 4.547 4.549 0 2.509-2.041 4.549-4.549 4.549zm2.492-3.414c-.136-.068-.804-.396-.928-.442-.124-.046-.214-.068-.304.069-.091.136-.353.442-.432.533-.081.091-.159.103-.295.035-.136-.068-.574-.211-1.094-.675-.407-.363-.682-.812-.762-.949-.081-.136-.009-.21.059-.278.062-.061.136-.159.204-.238.068-.079.091-.136.136-.227.046-.091.023-.171-.011-.238-.035-.068-.304-.733-.417-1.003-.109-.262-.221-.226-.304-.231-.079-.005-.171-.005-.262-.005-.091 0-.238.034-.363.171-.125.136-.477.476-.477 1.162 0 .686.499 1.349.568 1.441.069.091.983 1.5 2.382 2.104 1.399.604 1.399.402 1.652.378.253-.023.804-.329.918-.646.114-.318.114-.591.079-.646-.035-.056-.125-.091-.261-.159z"/></svg>
-                    تجديد الباقة
-                </a>
-                <a href="https://api.whatsapp.com/send?phone=201021205253&text=السلام عليكم، عندي مشكلة في النت، الماك: $(mac)" class="btn-wa-help" target="_blank">
-                    <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.654-.696c1.029.575 1.96.865 3.109.865 3.182 0 5.769-2.587 5.769-5.767 0-3.181-2.584-5.767-5.765-5.767zm0 10.158c-1.036 0-1.921-.297-2.775-.769l-.199-.111-1.636.429.441-1.591-.124-.207c-.502-.821-.806-1.657-.806-2.482 0-2.508 2.039-4.549 4.55-4.549 2.507 0 4.547 2.039 4.547 4.549 0 2.509-2.041 4.549-4.549 4.549zm2.492-3.414c-.136-.068-.804-.396-.928-.442-.124-.046-.214-.068-.304.069-.091.136-.353.442-.432.533-.081.091-.159.103-.295.035-.136-.068-.574-.211-1.094-.675-.407-.363-.682-.812-.762-.949-.081-.136-.009-.21.059-.278.062-.061.136-.159.204-.238.068-.079.091-.136.136-.227.046-.091.023-.171-.011-.238-.035-.068-.304-.733-.417-1.003-.109-.262-.221-.226-.304-.231-.079-.005-.171-.005-.262-.005-.091 0-.238.034-.363.171-.125.136-.477.476-.477 1.162 0 .686.499 1.349.568 1.441.069.091.983 1.5 2.382 2.104 1.399.604 1.399.402 1.652.378.253-.023.804-.329.918-.646.114-.318.114-.591.079-.646-.035-.056-.125-.091-.261-.159z"/></svg>
-                    عندي مشكلة
-                </a>
-            </div>
-
-            <a href="https://fast.com/ar/" target="_blank" class="btn-speed">
-                🚀 قياس سرعة الإنترنت
-            </a>
-        </div>
+    $(if trial == 'yes')
+    <a href="$(link-login-only)?target=trial" class="btn-trial">🎁 تجربة مجانية (5 دقائق)</a>
+    $(endif)
+    
+    <div class="contact-buttons">
+        <a href="tel:01021205253" class="btn-contact bg-call"><svg class="icon-svg" viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.44-5.15-3.75-6.59-6.59l1.97-1.57c.27-.27.36-.66.24-1.01-.36-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3.3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>اتصال واشترك</a>
     </div>
 </div>
 
-<div id="kids-card-container">
-    <div class="kids-card">
-        <span class="hero-icon">🦸‍♂️</span>
-        <div class="kids-title">أهلاً بك يا بطل!</div>
-        <div class="sub-text">كارت الطفل بيديك نت لمدة أسبوع سرعة 1 ميجا<br>مناسب للأطفال مع خاصية حجب المواقع</div>
-        <div class="message-box">
-            ذاكر دروسك كويس! 📚<br>النت هيفصل الساعة 10 بالليل عشان ننام
-        </div>
-        <div class="info-row">الاسم: $(username)</div>
-        <div class="info-row">الوقت المتبقي: $(if session-time-left)$(session-time-left)$(else)مفتوح$(endif)</div>
-        <a href="https://chat.whatsapp.com/C3EofQFRrXULM0dfAcqzea?mode=hqrt3" target="_blank" style="text-decoration:none;">
-            <button class="btn-support">دخول جروب الدعم للأطفال</button>
-        </a>
-        <form action="$(link-logout)" name="logout" onSubmit="return confirm('عايز تقفل النت يا بطل؟')">
-            <button type="submit" class="btn-kids-logout">الخروج من الشبكة</button>
-        </form>
-    </div>
-</div>
-
-<script>
-    var profileName = "$(user-profile)"; 
-    var displayText = "مشترك عادي"; 
-
-    // منطق تبديل الصفحات (كبار / أطفال)
-    if (profileName == "Kids") {
-        document.getElementById("normal-card").style.display = "none";
-        document.getElementById("kids-card-container").style.display = "block";
-        document.getElementById("main-body").className = "kids-body-style";
-        // ✅ هذا هو السطر الذي يخفي زر الوضع الليلي للأطفال
-        document.getElementById("theme-btn").style.display = "none"; 
-    } 
-    else {
-        if (profileName == "Card5") displayText = "5 جنيه - 500 ميجا";
-        else if (profileName == "Card10") displayText = "10 جنيه - 1200 ميجا";
-        else if (profileName == "Card15") displayText = "15 جنيه - 2000 ميجا";
-        else if (profileName == "Card20") displayText = "20 جنيه - 3000 ميجا";
-        else if (profileName == "Month") displayText = "اشتراك شهري";
-        
-        document.getElementById("plan-display").innerHTML = displayText;
-    }
-
-    // منطق التحديث التلقائي (كل 60 ثانية)
-    setInterval(function(){
-        window.location.reload();
-    }, 60000);
-
-    // منطق الوضع الليلي
-    function toggleTheme() {
-        const body = document.body;
-        if (body.getAttribute("data-theme") === "dark") {
-            body.setAttribute("data-theme", "light");
-            localStorage.setItem("theme", "light");
-        } else {
-            body.setAttribute("data-theme", "dark");
-            localStorage.setItem("theme", "dark");
-        }
-    }
-    // استرجاع الوضع المفضل عند التحميل
-    if (localStorage.getItem("theme") === "dark") {
-        document.body.setAttribute("data-theme", "dark");
-    }
-</script>
-</body>
-</html>
+<div id="price-modal" class="price-modal">
+    <div class="price-content">
+        <h3 style="color:#3fbf3f; margin-top:0;">باقات أبو إسكندر</h3>
+        <table class="price-table">
+            <tr><th>الباقة</th><th>السعر</th></tr>
+            <tr><td>500 ميجا</td><td>5 جنيه</td></tr>
+            <tr><td>1200 ميجا</td><td>10 جنيه</td></tr>
